@@ -1,25 +1,28 @@
 /// DAY 3: Structs (Habit Model Skeleton)
 /// 
-/// Today you will:
+/// Today (Done in main.move)
 /// 1. Learn about structs
-/// 2. Create a Habit struct
-/// 3. Write a constructor function
+/// 2. Created a Habit struct
+/// 3. Wrote a constructor function
 
 module challenge::day_03 {
     use std::vector;
 
-    // TODO: Define a struct called 'Habit' with:
-    // - name: vector<u8> (we'll use String later)
-    // - completed: bool
-    // Add 'copy' and 'drop' abilities
-    // public struct Habit has copy, drop {
-    //     // Your fields here
-    // }
+    // A struct is a custom data type that groups related data together
+    // Habit struct with name and completed status
+    // Abilities tell Move what you can do with a type: copy, drop, store, key
+    // Here, we want to be able to copy and drop Habits
+    
+   public struct Habit has copy, drop {
+        name: vector<u8>,
+        completed: bool,
+    }
 
-    // TODO: Write a constructor function 'new_habit'
-    // that takes a name (vector<u8>) and returns a Habit
-    // public fun new_habit(name: vector<u8>): Habit {
-    //     // Your code here
-    // }
+    // Constructor function to create a new habit
+    public fun new_habit(name: vector<u8>): Habit {
+        Habit {
+            name,
+            completed: false,
+        }
+    }
 }
-
