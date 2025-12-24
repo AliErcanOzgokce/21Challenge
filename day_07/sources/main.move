@@ -1,11 +1,10 @@
 /// DAY 7: Unit Tests for Habit Tracker
 ///
-/// Today you will:
-/// 1. Learn how to write tests in Move
-/// 2. Write tests for your habit tracker
-/// 3. Use assert! macro
-///
-/// Note: You can copy code from day_06/sources/solution.move if needed
+/// Today (Done in main.move):
+/// 1. Learnt how to write tests in Move
+/// 2. Wrote tests for your habit tracker
+/// 3. Used assert! macro
+
 
 module challenge::day_07 {
     use std::vector;
@@ -52,24 +51,36 @@ module challenge::day_07 {
     }
 
     // Note: assert! is a built-in macro in Move 2024 - no import needed!
+    // assert!(condition) - Check if condition is true (built-in macro) 
+    // assert_eq!(value1, value2) - Check if two values are equal (from unit_test module)
 
-    // TODO: Write a test 'test_add_habits' that:
-    // - Creates an empty list
-    // - Adds 1-2 habits
-    // - Checks that the list length is correct
-    // #[test]
-    // fun test_add_habits() {
-    //     // Your code here
-    //     // Use b"Exercise".to_string() to create a String
-    // }
 
-    // TODO: Write a test 'test_complete_habit' that:
-    // - Creates a list and adds a habit
-    // - Completes the habit
-    // - Checks that completed == true
-    // #[test]
-    // fun test_complete_habit() {
-    //     // Your code here
-    // }
+    // Test: Create list and add habits
+    #[test]
+    fun test_add_habits() {
+        let mut list = empty_list();
+        // b"...".to_string() converts byte literals (b"...") to String
+        // This is the standard way to create String values in Move
+        let habit1 = new_habit(b"Exercise".to_string());
+        let habit2 = new_habit(b"Read".to_string());
+        
+        add_habit(&mut list, habit1);
+        add_habit(&mut list, habit2);
+        
+        let len = vector::length(&list.habits);
+        assert!(len == 2, 0);
+    }
+
+    // Test: Complete a habit
+    #[test]
+    fun test_complete_habit() {
+        let mut list = empty_list();
+        let habit = new_habit(string::utf8(b"Exercise"));
+        add_habit(&mut list, habit);
+        
+        complete_habit(&mut list, 0);
+        
+        let completed_habit = vector::borrow(&list.habits, 0);
+        assert!(completed_habit.completed == true);
+    }
 }
-
