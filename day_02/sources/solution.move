@@ -21,4 +21,3 @@ module challenge::day_02_solution {
         assert_eq!(result, 3);
     }
 }
-

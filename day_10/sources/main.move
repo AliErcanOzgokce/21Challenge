@@ -1,11 +1,10 @@
 /// DAY 10: Visibility Modifiers (Public vs Private Functions)
 /// 
-/// Today you will:
-/// 1. Learn about visibility modifiers (public vs private)
-/// 2. Design a public API
-/// 3. Write a function to complete tasks
-///
-/// Note: You can copy code from day_09/sources/solution.move if needed
+/// Today (Done in main.move):
+/// 1. Learnt about visibility modifiers (public vs private)
+/// 2. Designed a public API
+/// 3. Wrote a function to complete tasks
+
 
 module challenge::day_10 {
     use std::string::String;
@@ -35,17 +34,24 @@ module challenge::day_10 {
     }
 
     // TODO: Write a public function 'complete_task' that:
-    // - Takes task: &mut Task
-    // - Sets task.status = TaskStatus::Completed
-    // This should be public so users can call it
-    // public fun complete_task(task: &mut Task) {
-    //     // Your code here
-    // }
+    // - Takes task: &mut Task | - Sets task.status = TaskStatus::Completed
+    // Public function - users can call this from outside the module
+    public fun complete_task(task: &mut Task) {
+        task.status = TaskStatus::Completed;
+    }
 
     // TODO: (Optional) Write a private helper function
     // Private functions use 'fun' instead of 'public fun'
     // They can only be called from within the same module
+     fun internal_helper(task: &Task): bool {
+        // Internal validation logic (only this module can call this, not external users)
+        task.reward > 0
+    }
+    
     // BONUS: Add a public function that calls your private helper
-    //        (e.g. 'has_valid_reward' that internally calls 'internal_helper')
+    // ('has_valid_reward' that internally calls 'internal_helper')
+    public fun has_valid_reward(task: &Task): bool {
+        internal_helper(task)
+    }
 }
 
