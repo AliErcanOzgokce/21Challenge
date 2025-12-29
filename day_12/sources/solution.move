@@ -4,9 +4,7 @@
 /// Students should complete main.move, not this file.
 
 module challenge::day_12_solution {
-    use std::vector;
     use std::string::String;
-    use std::option::{Self, Option};
 
     // Copy TaskBoard and related structs from day_11
     public enum TaskStatus has copy, drop {

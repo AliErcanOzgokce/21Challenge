@@ -1,16 +1,13 @@
 /// DAY 12: Option for Task Lookup
 /// 
-/// Today you will:
-/// 1. Learn about Option<T> type
-/// 2. Write a function to find tasks by title
-/// 3. Handle the case when task is not found
-///
-/// Note: You can copy code from day_11/sources/solution.move if needed
+/// Today (Done in main.move):
+/// 1. Learnt about Option<T> type
+/// 2. Wrote a function to find tasks by title
+/// 3. Handled the case when task is not found
+
 
 module challenge::day_12 {
-    use std::vector;
     use std::string::String;
-    use std::option::{Self, Option};
 
     // Copy from day_11: TaskStatus, Task, and TaskBoard
     public enum TaskStatus has copy, drop {
@@ -52,11 +49,18 @@ module challenge::day_12 {
     // - Takes board: &TaskBoard and title: &String
     // - Returns Option<u64> (the index if found, None if not found)
     // - Loops through tasks and compares titles
-    // public fun find_task_by_title(board: &TaskBoard, title: &String): Option<u64> {
-    //     // Your code here
-    //     // Use a while loop to iterate
-    //     // Use option::some(index) if found
-    //     // Use option::none() if not found
-    // }
+    // Find task by title, returns Option<u64> with index if found
+    public fun find_task_by_title(board: &TaskBoard, title: &String): Option<u64> {
+        let len = vector::length(&board.tasks);
+        let mut i: u64 = 0;
+        while (i < len) {
+            let task = vector::borrow(&board.tasks, i);
+            if (*&task.title == *title) {
+                return option::some(i)
+            };
+            i = i + 1;
+        };
+        option::none()
+    }
 }
 
